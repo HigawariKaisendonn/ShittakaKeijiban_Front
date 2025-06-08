@@ -4,7 +4,7 @@
 
 - **Next.js** (app router / React 18+)
 - **TypeScript**
-- **Tailwind CSS**
+- **SCSS**
 - **ESLint / Prettier**
 - **Atomic Design**
     - Atoms / Molecules / Organisms / Templates
@@ -40,14 +40,3 @@ npx create-next-app@latest my-app --typescript --eslint --tailwind
   /molecules
   /organisms
   /templates
-
-## 作成コマンド
-
-```bash
-mkdir -p src/app/components/atoms
-mkdir -p src/app/components/molecules
-mkdir -p src/app/components/organisms
-mkdir -p src/app/components/templates
-```
-
-## 雛形作成 完了 ✅
