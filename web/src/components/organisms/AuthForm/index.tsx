@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import './AuthForm.css';
+import './AuthForm.scss';
 
 export const AuthForm: React.FC = () => {
   const [isSignUp, setIsSignUp] = useState(false);
