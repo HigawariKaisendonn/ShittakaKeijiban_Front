@@ -19,21 +19,21 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {
   args: {
-    children: 'Primary Button',
+    children: '新規登録',
     variant: 'primary',
   },
 };
 
 export const Secondary: Story = {
   args: {
-    children: 'Secondary Button',
+    children: '登録済み',
     variant: 'secondary',
   },
 };
 
 export const Danger: Story = {
   args: {
-    children: 'Danger Button',
+    children: '削除',
     variant: 'danger',
   },
 };
