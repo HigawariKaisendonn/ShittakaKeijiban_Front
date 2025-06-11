@@ -1,5 +1,6 @@
-const config = {
-  plugins: ["@tailwindcss/postcss"],
+// OK: Viteでも動作する形式
+export default {
+  plugins: {
+    autoprefixer: {},
+  },
 };
-
-export default config;
