@@ -1,0 +1,11 @@
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #333; /* デフォルトの色 */
+  transition: color 0.2s ease;
+}
+
+.icon:hover {
+  color: #007bff; /* ホバー時に色変化（例） */
+}
