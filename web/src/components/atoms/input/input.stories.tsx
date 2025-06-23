@@ -8,7 +8,7 @@ const meta: Meta<typeof Input> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["default", "outline", "filled", "error", "disabled"],
+      options: ["default", "active", "disabled", "error", "longtext"],
     },
     placeholder: { control: "text" },
     type: { control: "text" },
@@ -28,19 +28,10 @@ export const Default: Story = {
   },
 };
 
-export const Outline: Story = {
+export const Active: Story = {
   args: {
-    variant: "outline",
-    placeholder: "アウトライン入力",
-    type: "text",
-    value: "",
-  },
-};
-
-export const Filled: Story = {
-  args: {
-    variant: "filled",
-    placeholder: "塗りつぶし入力",
+    variant: "active",
+    placeholder: "フォーカス中の入力",
     type: "text",
     value: "",
   },
@@ -59,6 +50,15 @@ export const Disabled: Story = {
   args: {
     variant: "disabled",
     placeholder: "入力不可",
+    type: "text",
+    value: "",
+  },
+};
+
+export const Longtext: Story = {
+  args: {
+    variant: "longtext",
+    placeholder: "長文入力エリア",
     type: "text",
     value: "",
   },
