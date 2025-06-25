@@ -1,8 +1,7 @@
-import { AuthForm } from '@/components/organisms/AuthForm';
-import { Button3 } from '@/components/molecules/button3/button3';
+import { AuthButton } from '@/components/molecules/authButton/authButton';
 
 export default function Home() {
   return (
-    <Button3 />
+    <AuthButton />
   );
 }
