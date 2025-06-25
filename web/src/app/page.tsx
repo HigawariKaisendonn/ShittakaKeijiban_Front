@@ -1,7 +1,11 @@
-import { AuthForm } from '@/components/organisms/AuthForm';
+import { AuthForm } from '@/components/organisms/AuthForm/Index';
+import { Header } from '@/components/molecules/header/Header';
 
 export default function Home() {
   return (
-    <AuthForm />
+    <div>
+      <Header />
+      <AuthForm />
+    </div>
   );
 }

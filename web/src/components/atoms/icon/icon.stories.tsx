@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs';
-import { Icon } from './icon';
+import { Icon } from './Icon';
 import { Trash2, User, Plus } from 'lucide-react';
 
 const iconOptions = {

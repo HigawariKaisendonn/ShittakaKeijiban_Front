@@ -1,4 +1,4 @@
-import './icon.scss'; 
+import './icon.scss';
 import { LucideIcon } from 'lucide-react';
 
 type IconProps = {
