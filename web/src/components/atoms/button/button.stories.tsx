@@ -26,7 +26,7 @@ export const Primary: Story = {
 
 export const Secondary: Story = {
   args: {
-    children: '登録済み',
+    children: 'サインイン',
     variant: 'secondary',
   },
 };
