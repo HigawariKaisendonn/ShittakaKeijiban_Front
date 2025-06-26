@@ -1,6 +1,6 @@
 'use client'
 
-import { Icon } from '@/components/atoms/icon/icon';
+import { Icon } from '@/components/atoms/icon/Icon';
 import { Menu } from 'lucide-react';
 import { AuthButton } from '../authButton/authButton';
 import './header.scss'

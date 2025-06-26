@@ -1,6 +1,6 @@
 'use client';
 import "./authButton.scss"
-import { Button } from "@/components/atoms/button/button"
+import { Button } from "@/components/atoms/button/Button";
 
 interface AuthButtonProps {
     onRegisterClick?: () => void;

@@ -7,7 +7,7 @@ interface ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const Button = ({ children, onClick, variant = "primary" }: ButtonProps) => {
+export const Button = ({ children, onClick, variant = "primary"}: ButtonProps) => {
   const buttonClass = classNames("button", {
     "button--primary": variant === "primary",
     "button--secondary": variant === "secondary",
