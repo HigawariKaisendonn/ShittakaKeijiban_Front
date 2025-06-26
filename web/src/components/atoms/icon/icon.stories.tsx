@@ -56,3 +56,11 @@ export const PlusIcon: Story = {
     className: '',
   },
 };
+
+export const ImageIcon: Story = {
+  args: {
+    imageUrl: '/icon.png',
+    size: 40,
+    className: '',
+  },
+};
