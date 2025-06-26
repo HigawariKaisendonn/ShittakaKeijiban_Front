@@ -11,7 +11,7 @@ export const Header = () => {
             <div className='header-left'>
                 <Icon icon = {Menu}>
                 </Icon>
-                <span className='header-title'>しったか掲示板</span>
+                <text className='header-title'>しったか掲示板</text>
             </div>
             <AuthButton/>
         </div>
