@@ -16,10 +16,10 @@ export const Input = ({ variant = "default", type, placeholder, value, onChange 
     "input--error": variant === "error",
     "input--disabled": variant === "disabled",
     "input--longtext": variant === "longtext",
-  }); 
+  });
   return (
     <input
-     className={inputClass}
+    className={inputClass}
     type={type}
     placeholder={placeholder}
     value={value}
