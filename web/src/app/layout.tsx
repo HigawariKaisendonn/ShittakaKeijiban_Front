@@ -28,7 +28,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <video autoPlay muted loop playsInline id="bg-video">
-          <source src="/images/6073480-uhd_3840_2160_25fps.mp4" type="video/mp4" />
+          <source src="/images/7343467-uhd_3840_2160_25fps.mp4" type="video/mp4" />
         </video>
         {children}
       </body>
