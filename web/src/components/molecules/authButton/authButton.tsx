@@ -1,17 +1,18 @@
 'use client';
-import "./authButton.scss"
+import "./auth-button.scss"
 import { Button } from "@/components/atoms/button/Button";
 
 interface AuthButtonProps {
     onRegisterClick?: () => void;
     onLoginClick?: () => void;
+    className?: string;
 }
 
 
-export const AuthButton = ({onRegisterClick,onLoginClick}:AuthButtonProps) => {
+export const AuthButton = ({onRegisterClick,onLoginClick,className}:AuthButtonProps) => {
 
     return (
-        <div className="auth-button">
+        <div className={`auth-button ${className}`}>
             <Button variant="primary" onClick={onRegisterClick}>
                 新規登録
             </Button>
