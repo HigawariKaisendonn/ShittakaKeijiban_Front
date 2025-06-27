@@ -4,6 +4,10 @@
   justify-content: center;
   color: #333; /* デフォルトの色 */
   transition: color 0.2s ease;
+  font-size: 1.5rem; /* アイコンのサイズ */
+  width: 2rem; /* アイコンの幅 */
+  height: 2rem; /* アイコンの高さ */
+  margin-right: 0.5rem; /* アイコンとテキストの間隔 */
 }
 
 .icon:hover {

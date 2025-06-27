@@ -13,7 +13,7 @@ export const Icon = ({ icon: IconComponent, imageUrl, size = 24, className = '' 
   if (imageUrl) {
     return (
       <Image
-        src="/icon.png"
+        src={imageUrl}
         alt="user-icon"
         width={size}
         height={size}
