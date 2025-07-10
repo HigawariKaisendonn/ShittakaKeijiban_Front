@@ -9,9 +9,9 @@ export const Header = () => {
         <div className='header-container'>
             <div className='header-left'>
                 <Icon imageUrl="/images/icon.png" className="header-icon" />
-                <text className='header-title'>しったか掲示板</text>
+                <text className='header-title'>Pretender<br />Board</text>
             </div>
-            <AuthButton/>
+            <AuthButton disabled={false} />
         </div>
     );
 }

@@ -10,12 +10,17 @@ interface HeroCardProps {
 export const HeroCard = ({ onRegisterClick, onLoginClick }: HeroCardProps) => {
     return (
         <div className="hero-card">
-            <Text variant="headline">
-                OutPutを恐れるな真の学力向上とはその行いである。
+            <Text className="hero-card-headline" variant="headline">
+                OutPutを恐れるな<br />真の学力向上とはその行いである。
             </Text>
-            <div>
-                <Text className="hero-card-text" variant="subtitle">知ったかでもいい今から動こう</Text>
-                <AuthButton className="hero-card-button" onRegisterClick={onRegisterClick} onLoginClick={onLoginClick} />
+            <Text className="hero-card-text" variant="subtitle">
+                知ったかでもいい今から動こう。
+            </Text>
+            <div className="hero-card-button">
+                <AuthButton
+                    onRegisterClick={onRegisterClick}
+                    onLoginClick={onLoginClick}
+                />
             </div>
         </div>
     );
