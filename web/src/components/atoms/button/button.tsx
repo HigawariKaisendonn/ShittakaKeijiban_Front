@@ -8,9 +8,10 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  disabled?: boolean;
 }
 
-export const Button = ({ children, onClick, variant = "primary", className }: ButtonProps) => {
+export const Button = ({ children, onClick, variant = "primary", className, disabled }: ButtonProps) => {
   const buttonClass = classNames("button", {
     "button--primary": variant === "primary",
     "button--secondary": variant === "secondary",
@@ -18,7 +19,7 @@ export const Button = ({ children, onClick, variant = "primary", className }: Bu
   },
   className);
   return (
-    <button className={buttonClass} onClick={onClick}>
+    <button className={buttonClass} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );

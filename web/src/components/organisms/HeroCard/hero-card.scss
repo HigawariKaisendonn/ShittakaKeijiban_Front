@@ -1,27 +1,35 @@
 .hero-card {
-  margin: 0 auto;
-  padding: 2rem;
-  margin-top: 2%;
-  border-radius: 0.5rem;
-  border: 0.25rem solid rgba(20, 20, 46, 0.6);
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(4px);
-  max-width: 82rem;
-  box-sizing: border-box;
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.416);
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+}
+
+.hero-card-headline {
+  font-weight: bold;
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .hero-card-text {
   font-weight: bold;
-  font-size: 2rem;
-  color: #2C3E50; // 知性と安心感
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .hero-card-button {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
 
   button {
     padding: 0.75rem 1.5rem;
