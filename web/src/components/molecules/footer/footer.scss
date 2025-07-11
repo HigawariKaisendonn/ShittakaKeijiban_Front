@@ -1,0 +1,29 @@
+.footer-container{
+    display: flex;
+    flex-direction: column;
+    min-height: 120px;
+    padding: 10px 5% 10px;
+    background-color: var(--background);
+    color: var(--foreground);
+
+}
+.footer-title-container {
+    display: flex;
+    align-items: center;
+    .footer-title {
+        color: rgb(0, 0, 0);
+    }
+}
+.footer-caption-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .footer-caption{
+        padding: 8px;
+        color: rgb(0, 0, 0);
+    }
+    // 横幅が700px以下のときは縦に並べる
+    @media (max-width: 700px) {
+        flex-direction: column;
+    }
+}
