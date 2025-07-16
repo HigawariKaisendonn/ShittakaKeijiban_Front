@@ -1,27 +1,27 @@
 .footer-container{
-    display: flex;
-    flex-direction: column;
-    min-height: 120px;
-    padding: 10px 5% 10px;
+    align-items: center;
     background-color: var(--background);
     color: var(--foreground);
-
 }
 .footer-title-container {
     display: flex;
     align-items: center;
-    .footer-title {
-        color: rgb(0, 0, 0);
-    }
+    padding-left: 8vw;
+    padding-right: 8vw;
+    height: 11vh;
 }
-.footer-caption-container {
+.footer-title {
+    color: rgb(0, 0, 0);
+}
+.footer-caption{
+    font-size: 1rem;
+    padding-left: 4vw;
+    padding-right: 4vw;
+    color: rgb(0, 0, 0);
+}
+.footer-layout {
     display: flex;
-    justify-content: center;
     align-items: center;
-    .footer-caption{
-        padding: 8px;
-        color: rgb(0, 0, 0);
-    }
     // 横幅が700px以下のときは縦に並べる
     @media (max-width: 700px) {
         flex-direction: column;

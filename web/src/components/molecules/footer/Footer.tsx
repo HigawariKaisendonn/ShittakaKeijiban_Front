@@ -7,13 +7,13 @@ import './footer.scss';
 export const Footer = () => {
     return (
         <div className='footer-container'>
-            <div className='footer-title-container'>
-                <Icon imageUrl='/images/icon.png'/>
-                <Text variant='subtitle' className='footer-title'>
-                    Pretender<br/>Board
-                </Text>
-            </div>
-            <div className='footer-caption-container'>
+            <div className='footer-layout'>
+                <div className='footer-title-container'>
+                    <Icon imageUrl='/images/icon.png'/>
+                    <Text variant='subtitle' className='footer-title'>
+                        Pretender<br/>Board
+                    </Text>
+                </div>
                 <Text variant='caption'  className='footer-caption'>
                     利用規約
                 </Text>
