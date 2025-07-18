@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.scss";
-import { Header } from '@/components/molecules/header/Header';
-import { Footer } from '@/components/molecules/footer/Footer';
+import { Header } from "@/components/molecules/header/Header";
+import { Footer } from "@/components/molecules/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,15 +26,43 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <Header />
-        <video autoPlay muted loop playsInline id="bg-video">
-          <source src="/images/7219773-uhd_3840_2160_25fps.mp4" type="video/mp4" />
-        </video>
-        {children}
-        <Footer />
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "100vh",
+            position: "relative",
+          }}
+        >
+          <Header />
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              zIndex: -1,
+            }}
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              id="bg-video"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            >
+              <source
+                src="/images/7219773-uhd_3840_2160_25fps.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+          <main style={{ flex: 1, zIndex: 1 }}>{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );
