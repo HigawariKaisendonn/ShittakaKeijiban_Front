@@ -1,9 +1,19 @@
+// --------------------
+// SCSS Variables
+// --------------------
+$color-white: #fff;
+$color-gradient-start: #6a11cb;
+$color-gradient-end: #2575fc;
+$color-headline: #4d79e7;
+$transition-default: 0.6s ease-in-out;
+
 /* 全体コンテナ */
 .container {
-  background-color: #fff;
+  background-color: $color-white;
   border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25),
-              0 10px 10px rgba(0,0,0,0.22);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.25),
+    0 10px 10px rgba(0, 0, 0, 0.22);
   position: relative;
   overflow: hidden;
   width: 768px;
@@ -17,20 +27,21 @@
   position: absolute;
   top: 0;
   height: 100%;
-  transition: all 0.6s ease-in-out;
+  transition: all $transition-default;
 }
 
 .sign-in-container {
   left: 0;
   width: 50%;
-  z-index: 2;
+  z-index: 0;
 }
 
 .sign-up-container {
   left: 0;
   width: 50%;
   opacity: 0;
-  z-index: 1;
+  z-index: 0;
+  transform: translateX(100%);
 }
 
 /* overlay */
@@ -41,19 +52,23 @@
   width: 50%;
   height: 100%;
   overflow: hidden;
-  transition: transform 0.6s ease-in-out;
+  transition: transform $transition-default;
   z-index: 100;
 }
 
 .overlay {
-  background: linear-gradient(to right, #6a11cb, #2575fc);
-  color: #fff;
+  background: linear-gradient(
+    to right,
+    $color-gradient-start,
+    $color-gradient-end
+  );
+  color: $color-white;
   position: relative;
   left: -100%;
   height: 100%;
   width: 200%;
   transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
+  transition: transform $transition-default;
 }
 
 .overlay-panel {
@@ -61,34 +76,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 0 40px;
-  text-align: center;
-  top: 0;
-  height: 100%;
-  width: 50%;
-  transform: translateX(0);
-  transition: transform 0.6s ease-in-out;
+  transition: transform $transition-default;
 }
 
 .overlay-left {
   transform: translateX(-20%);
+  padding: 6%;
 }
 
 .overlay-right {
   right: 0;
   transform: translateX(0);
+  padding: 6%;
 }
 
 /* active class */
 .container.right-panel-active .sign-in-container {
-  transform: translateX(100%);
+  z-index: 0;
 }
 
 .container.right-panel-active .sign-up-container {
   transform: translateX(100%);
   opacity: 1;
-  z-index: 5;
+  z-index: 0;
+}
+
+.container.right-panel-active .overlay-container {
+  transform: translateX(-100%);
+  z-index: 0;
 }
 
 .container.right-panel-active .overlay {
@@ -97,36 +112,19 @@
 
 .container.right-panel-active .overlay-left {
   transform: translateX(0);
+  text-align: center;
 }
 
 .container.right-panel-active .overlay-right {
   transform: translateX(20%);
 }
 
-/* ボタン */
-button {
-  border-radius: 20px;
-  border: 1px solid #fff;
-  background-color: #fff;
-  color: #333;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 12px 45px;
-  margin-top: 10px;
-  cursor: pointer;
-}
-
-button.ghost {
-  background-color: transparent;
-  border-color: #fff;
-  color: #fff;
-}
-
 /* 入力欄 */
 input {
-  background-color: #eee;
-  border: none;
-  padding: 12px 15px;
   margin: 8px 0;
-  width: 100%;
+}
+
+.text--headline {
+  text-align: center;
+  color: $color-headline;
 }
