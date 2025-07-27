@@ -1,15 +1,39 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
-import { useRouter } from "next/navigation"; // Next.js App Router用
+import React, { useState, useCallback, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation"; // Next.js App Router用
 import "./auth-form.scss";
 import apiClient from "@/lib/apiClient";
-import { Button } from "@/components/atoms/button/Button";
+import { Button } from "@/components/atoms/button/button";
 import { Input } from "@/components/atoms/input/input";
 import { Text } from "@/components/atoms/text/Text";
+import { worker } from "@/mocks/browser";
 
 export const AuthForm: React.FC = () => {
-  const [isSignUp, setIsSignUp] = useState(false);
+  const searchParams = useSearchParams();
+  const mode = searchParams.get("mode");
+  /**
+   * MSWのワーカーを開発環境でのみ起動
+   * 本番環境ではAPIは実際のサーバーに接続されるため、
+   * MSWは使用しない
+   */
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      worker.start();
+    }
+  }, []);
+  /**
+   * モードに応じて新規登録とログインの状態を切り替える
+   * 初期状態は新規登録モード
+   */
+  const [isSignUp, setIsSignUp] = useState(mode === "register");
+  useEffect(() => {
+    if (mode === "register") {
+      setIsSignUp(true);
+    } else if (mode === "login") {
+      setIsSignUp(false);
+    }
+  }, [mode]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

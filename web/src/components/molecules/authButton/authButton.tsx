@@ -1,26 +1,31 @@
 "use client";
+
 import "./auth-button.scss";
-import { Button } from "@/components/atoms/button/Button";
+import { Button } from "@/components/atoms/button/button";
+import { useRouter } from "next/navigation";
 
 interface AuthButtonProps {
-  onRegisterClick?: () => void;
-  onLoginClick?: () => void;
   className?: string;
   disabled?: boolean;
 }
 
-export const AuthButton = ({
-  onRegisterClick,
-  onLoginClick,
-  className,
-  disabled,
-}: AuthButtonProps) => {
+export const AuthButton = ({ className, disabled }: AuthButtonProps) => {
+  const router = useRouter();
+
+  const handleLogin = () => {
+    router.push("/auth?mode=login");
+  };
+
+  const handleRegister = () => {
+    router.push("/auth?mode=register");
+  };
+
   return (
     <div className={`auth-button ${className}`}>
-      <Button variant="primary" onClick={onLoginClick} disabled={disabled}>
+      <Button variant="primary" onClick={handleLogin} disabled={disabled}>
         サインイン
       </Button>
-      <Button variant="secondary" onClick={onRegisterClick} disabled={disabled}>
+      <Button variant="secondary" onClick={handleRegister} disabled={disabled}>
         新規登録
       </Button>
     </div>

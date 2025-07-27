@@ -1,13 +1,9 @@
+"use client";
 import "./hero-card.scss";
 import { Text } from "@/components/atoms/text/Text";
 import { AuthButton } from "@/components/molecules/authButton/AuthButton";
 
-interface HeroCardProps {
-  onRegisterClick?: () => void;
-  onLoginClick?: () => void;
-}
-
-export const HeroCard = ({ onRegisterClick, onLoginClick }: HeroCardProps) => {
+export const HeroCard = () => {
   return (
     <div className="hero-card">
       <Text className="hero-card-headline" variant="headline">
@@ -19,10 +15,7 @@ export const HeroCard = ({ onRegisterClick, onLoginClick }: HeroCardProps) => {
         知ったかでもいい今から動こう。
       </Text>
       <div className="hero-card-button">
-        <AuthButton
-          onRegisterClick={onRegisterClick}
-          onLoginClick={onLoginClick}
-        />
+        <AuthButton />
       </div>
     </div>
   );
