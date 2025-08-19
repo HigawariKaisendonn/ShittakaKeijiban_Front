@@ -13,12 +13,12 @@ export const ChoicesCard : React.FC<ChoicesCardProps> = ({ choices, choicesChang
   return (
     <div className="choices-card">
       <Text variant='subtitle'>選択肢作成</Text>
-      {choices.map((choices, index) => (
+      {choices.map((choice, index) => (
         <Input
           key={index}
           placeholder={`選択肢${index + 1}`}
           className="choices-input"
-          value={choices}
+          value={choice}
           onChange={(e) => choicesChangeAction(index, e.target.value)}
         />
       ))}
