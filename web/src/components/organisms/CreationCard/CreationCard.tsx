@@ -1,8 +1,10 @@
 "use client";
 import "./creation-card.scss";
-import { Text } from '@/components/atoms/text/Text';
 import { Button } from "@/components/atoms/button/button";
-import { Input } from "@/components/atoms/input/Input";
+import { QuestionCard }  from "@/components/molecules/questionCard/QuestionCard";
+import { ChoicesCard } from "@/components/molecules/choicesCard/ChoicesCard";
+import { AnswerCard } from "@/components/molecules/answerCard/AnswerCard";
+import { ExplanationCard } from "@/components/molecules/explanationCard/explanationCard";
 import { useState } from "react";
 
 
@@ -21,16 +23,28 @@ export const CreationCard = () => {
     const newChoices = [...choices];
     newChoices[index] = value;
     setChoices(newChoices);
-    setAnswerIndex(null);
+
+    // 選択された解答が空になった場合、未選択にする
+    if (answerIndex === index && value.trim() === "") {
+      setAnswerIndex(null);
+    }
   };
 
   // フォームの送信処理
   const handleSubmit = () => {
     const emptyFields = [];
-    if (!question) emptyFields.push("問題文");
-    if (choices.filter(choice => choice.trim() === "").length > 2) emptyFields.push("選択肢");
-    if (answerIndex === null) emptyFields.push("解答");
-    if (!explanation) emptyFields.push("解説");
+    if (!question) {
+      emptyFields.push("問題文");
+    }
+    if (choices.filter(choice => choice.trim() !== "").length < 2) {
+      emptyFields.push("選択肢(2つ以上必要)");
+    }
+    if (answerIndex === null) {
+      emptyFields.push("解答");
+    }
+    if (!explanation) {
+      emptyFields.push("解説");
+    }
 
     if (emptyFields.length > 0) {
       alert(`${emptyFields.join(", ")}が未入力です。再度入力してください。`);
@@ -51,65 +65,27 @@ export const CreationCard = () => {
     case 0:
       return (
         <div className="creationcard-container">
-          <div className="card">
-            <Text variant='subtitle'>問題文作成</Text>
-            <textarea
-              placeholder="問題文を入力"
-              className="textarea-large"
-              value={question}
-              onChange={(e) => setQuestion(e.target.value)}
-            />
-          </div>
-          <div className="card">
-            <Text variant='subtitle'>選択肢作成</Text>
-            {choices.map((choice, index) => (
-              <Input
-                key={index}
-                placeholder={`選択肢${index + 1}`}
-                className={"input-margin"}
-                value={choice}
-                onChange={(e) => choiceChange(index, e.target.value)}
-              />
-            ))}
-            <div className="button-container">
-              <Button variant="secondary" onClick={() => setCurrentStep(1)}>
-                次へ
-              </Button>
-            </div>
+          <QuestionCard question={question} setQuestionAction={setQuestion} />
+          <ChoicesCard choices={choices} choicesChangeAction={choiceChange} />
+          <div className="button-container">
+            <Button variant="secondary" onClick={() => setCurrentStep(1)}>
+              次へ
+            </Button>
           </div>
         </div>
       );
     case 1:
       return (
-        <div className="creationcard-container">
-          <div className="card">
-            <Text variant='subtitle'>解答選択</Text>
-            {choices.map((choice, index) => (
-              <Button
-                className="input-margin"
-                key={index}
-                onClick={() => setAnswerIndex(index)}
-                disabled={choice.trim() === ""}
-                variant={answerIndex === index ? "primary" : "danger"}
-              >
-                {choice || `入力されていません`}
-              </Button>
-            ))}
-          </div>
-          <div className="card">
-            <Text variant='subtitle'>解説作成</Text>
-            <textarea
-              placeholder="解説文を入力"
-              className="textarea-large"
-              value={explanation}
-              onChange={(e) => setExplanation(e.target.value)}
-            />
+        <div>
+          <div className="creationcard-container">
+            <AnswerCard choices={choices} answerIndex={answerIndex} setAnswerIndexAction={setAnswerIndex} />
+            <ExplanationCard explanation={explanation} setExplanationAction={setExplanation} />
             <div className="button-container">
-              <Button variant="secondary" onClick={() => setCurrentStep(0)}>
-                戻る
-              </Button>
               <Button variant="primary" onClick={handleSubmit}>
                 投稿
+              </Button>
+              <Button variant="secondary" onClick={() => setCurrentStep(0)}>
+                戻る
               </Button>
             </div>
           </div>
