@@ -1,0 +1,33 @@
+import "./RadioInput.scss";
+
+type RadioInputProps = {
+  id: string;
+  name: string;
+  value: string;
+  label: string;
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export const RadioInput = ({
+  id,
+  name,
+  value,
+  checked,
+  onChange,
+}: RadioInputProps) => {
+  return (
+    <label className="radio-label">
+      <input
+        type="radio"
+        id={id}
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={onChange}
+        className="radio-input"
+      />
+      <span>{value}</span>
+    </label>
+  );
+};

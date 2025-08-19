@@ -1,0 +1,27 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  line-height: 1;
+}
+
+.correct {
+  background-color: #4caf50;
+}
+
+.wrong {
+  background-color: #f44336;
+}
+
+.default {
+  background-color: #9e9e9e;
+}
+
+.text {
+  display: inline;
+}
