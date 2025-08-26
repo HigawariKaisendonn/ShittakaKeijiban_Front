@@ -1,0 +1,24 @@
+.radio-label {
+  display: block;
+  padding: 8px 12px;
+  margin: 4px 0;
+  border: 2px solid #cce4ff;
+  border-radius: 8px;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-size: 14px;
+}
+
+/* ラジオボタン自体は非表示にして見た目をラベルで制御 */
+.radio-input {
+  display: none;
+}
+
+/* 選択されたときの見た目（兄弟セレクタ使用） */
+.radio-input:checked + span {
+  background-color: #7fee78; /* 緑色背景 */
+  border-color: #4fcf4f;
+  font-weight: bold;
+  color: #000;
+}
