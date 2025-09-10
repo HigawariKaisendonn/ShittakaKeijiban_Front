@@ -1,6 +1,7 @@
 "use client";
 import { PostCard } from "@/components/organisms/PostCard/PostCard";
 
+
 const DashboardPage = () => {
   return (
     <div
@@ -42,5 +43,8 @@ const DashboardPage = () => {
           },
         }}
       />
+    </div>
   );
 };
+
+export default DashboardPage;
