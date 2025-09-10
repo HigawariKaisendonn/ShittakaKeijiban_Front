@@ -34,7 +34,7 @@ export const AuthForm: React.FC = () => {
       setIsSignUp(false);
     }
   }, [mode]);
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -53,7 +53,7 @@ export const AuthForm: React.FC = () => {
       }
       try {
         const response = await apiClient.post("/auth/signup", {
-          name,
+          username,
           email,
           password,
         });
@@ -66,7 +66,7 @@ export const AuthForm: React.FC = () => {
         console.error("新規登録失敗", error);
       }
     },
-    [name, email, password, confirmPassword]
+    [username, email, password, confirmPassword]
   );
 
   const handleSignIn = useCallback(
@@ -101,8 +101,8 @@ export const AuthForm: React.FC = () => {
           <Input
             type="text"
             placeholder="ニックネーム"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className={"default"}
           />
           <Input
