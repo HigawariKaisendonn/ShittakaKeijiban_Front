@@ -69,7 +69,7 @@ export const PostCard = ({ post, choices }: Props) => {
               }
             >
               <ChoiceOption
-                id={choice.id.toString()}
+                id={choice.id}
                 name={`post-${post.id}`}
                 label={choice.label}
                 checked={isSelected}
