@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { ChoiceOption } from "@/components/molecules/ChoiceOption/ChoiceOption";
 import { PostFooter } from "@/components/molecules/PostFooter/PostFooter";
@@ -24,16 +25,16 @@ type Choice = {
 
 
 type Post = {
-id: number;
-genre_id: number;
-user_id: string;
-title: string;
-body: string;
-explanation: string;
-created_at: string;
-views: number;
-correct_count: number;
-incorrect_count: number;
+  id: number;
+  genre_id: number;
+  user_id: string;
+  title: string;
+  body: string;
+  explanation: string;
+  created_at: string;
+  views: number;
+  correct_count: number;
+  incorrect_count: number;
 };
 
 type Props = {
@@ -51,10 +52,10 @@ export const PostCard = ({ post, choices }: Props) => {
 
   return (
     <div className="post-card">
-      <h3>問題</h3>
+      <h3>{post.title}</h3>
       <textarea className="question" value={post.body} readOnly />
       <div className="choices">
-        {choices.filter(choice => choice.question_id === post.id).slice(0, 4).map((choice) => {
+        {choices.filter(choice => choice.question_id === post.id).map((choice) => {
           const isSelected = selectedId === choice.id.toString();
           const showResult = isSelected;
           return (
@@ -93,6 +94,7 @@ export const PostCard = ({ post, choices }: Props) => {
       {showExplanation && (
         <div className="explanation">
           <p>{post.explanation}</p>
+          <p style={{ marginTop: 8, color: '#666' }}>閲覧数: {post.views}</p>
         </div>
       )}
     </div>
