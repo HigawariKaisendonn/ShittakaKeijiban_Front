@@ -3,7 +3,7 @@ import { RadioInput } from "@/components/atoms/RadioInput/RadioInput";
 import "./choice-option.scss";
 
 interface ChoiceOptionProps {
-  id: string;
+  id: number;
   name: string;
   label: string;
   checked: boolean;
@@ -24,9 +24,9 @@ export const ChoiceOption = ({
   return (
     <label className="choice-option">
       <RadioInput
-        id={id}
+        id={id.toString()}
         name={name}
-        value={id}
+        value={id.toString()}
         checked={checked}
         onChange={onChange}
         label={label}
