@@ -12,18 +12,6 @@ type Choice = {
 };
 
 
-// type Post = {
-//   id: string;
-//   question: string;
-//   choices: Choice[];
-//   stats: {
-//     comments: number;
-//     likes: number;
-//   };
-// };
-
-
-
 type Post = {
   id: number;
   genre_id: number;
