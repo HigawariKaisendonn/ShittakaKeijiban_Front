@@ -8,6 +8,7 @@ import { ChoicesCard } from "@/components/molecules/choicesCard/ChoicesCard";
 import { AnswerCard } from "@/components/molecules/answerCard/AnswerCard";
 import { ExplanationCard } from "@/components/molecules/explanationCard/explanationCard";
 import { useState, useEffect } from "react";
+import { Genre } from "@/types/Genre";
 
 export const CreationCard = () => {
   // 問題作成フォームのページ管理
@@ -26,7 +27,8 @@ export const CreationCard = () => {
   const [title, setTitle] = useState("");
   const [question, setQuestion] = useState("");
   const [explanation, setExplanation] = useState("");
-  // const [genre, setGenre] = useState<number | null>(null);
+  const [genre, setGenre] = useState<number | null>(null);
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [choices, setChoices] = useState(["", "", "", ""]);
   const [answerIndex, setAnswerIndex] = useState<number | null>(null);
 
@@ -34,6 +36,20 @@ export const CreationCard = () => {
   useEffect(() => {
     const storedToken = localStorage.getItem("access_token");
     setToken(storedToken);
+
+    // ジャンル一覧を取得
+    const fetchGenres = async () => {
+      try {
+        console.log('ジャンル取得開始...');
+        const response = await apiClient.get('/genres');
+        console.log('取得したジャンル:', response.data);
+        setGenres(response.data);
+      } catch (error) {
+        console.error('ジャンル取得失敗:', error);
+      }
+    };
+
+    fetchGenres();
   }, []);
 
   // 選択肢の内容変更時処理
@@ -63,12 +79,14 @@ export const CreationCard = () => {
 
   // フォームリセット関数
   const resetForm = () => {
+    console.log('resetForm実行 - 現在のジャンル:', genre);
     setTitle("");
     setQuestion("");
     setChoices(["", "", "", ""]);
     setAnswerIndex(null);
     setExplanation("");
-    // setGenre(null);
+    setGenre(null);
+    console.log('resetForm実行 - ジャンルをnullにセット');
     setCurrentStep(0);
     setError(null);
   };
@@ -112,7 +130,9 @@ export const CreationCard = () => {
       console.log('選択肢作成成功');
 
       alert('問題を投稿しました！');
+      console.log('投稿成功 - フォームをリセットします');
       resetForm();
+      console.log('リセット後のジャンル状態:', genre);
 
     } catch (error: unknown) {
       console.error('投稿失敗:', error);
@@ -162,11 +182,14 @@ export const CreationCard = () => {
               {error}
             </div>
           )}
-          <QuestionCard 
-            question={question} 
-            title={title} 
-            setQuestionAction={setQuestion} 
-            setTitleAction={setTitle} 
+          <QuestionCard
+            question={question}
+            title={title}
+            setQuestionAction={setQuestion}
+            setTitleAction={setTitle}
+            genres={genres}
+            selectedGenre={genre}
+            onGenreSelect={setGenre}
           />
           <ChoicesCard choices={choices} choicesChangeAction={choiceChange} />
           <div className="button-container">

@@ -15,6 +15,22 @@
   margin-bottom: 8px;
   border: 1px solid #ccc;
 }
+
+.genre-select {
+  width: 90%;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+}
+
+.genre-select:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
 .question-textarea {
   margin: 10px;
   border: 1px solid #ccc;
