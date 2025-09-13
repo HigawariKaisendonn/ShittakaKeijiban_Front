@@ -67,6 +67,35 @@ export const CreationCard = () => {
     }
   };
 
+  // ジャンル追加処理
+  const handleAddGenre = async (newGenreName: string): Promise<void> => {
+    try {
+      console.log('ジャンル追加開始:', newGenreName);
+      const response = await apiClient.post('/genres', {
+        name: newGenreName
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const newGenre = response.data;
+      console.log('新しいジャンル作成成功:', newGenre);
+
+      // ジャンル一覧を更新
+      setGenres(prev => [...prev, newGenre]);
+
+      // 作成したジャンルを自動選択
+      setGenre(newGenre.id);
+      console.log('ジャンル自動選択:', newGenre.id);
+
+    } catch (error) {
+      console.error('ジャンル追加失敗:', error);
+      setError('ジャンルの追加に失敗しました。');
+      throw error; // ポップアップでエラーハンドリングするため
+    }
+  };
+
   // バリデーション関数
   const isFormValid = () => {
     const validChoices = choices.filter(choice => choice.trim() !== "");
@@ -198,6 +227,7 @@ export const CreationCard = () => {
             genres={genres}
             selectedGenre={genre}
             onGenreSelect={setGenre}
+            onAddGenre={handleAddGenre}
           />
           <ChoicesCard choices={choices} choicesChangeAction={choiceChange} />
           <div className="button-container">
