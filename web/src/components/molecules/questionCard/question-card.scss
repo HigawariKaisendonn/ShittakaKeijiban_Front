@@ -16,9 +16,16 @@
   border: 1px solid #ccc;
 }
 
-.genre-select {
+.genre-selector-container {
+  display: flex;
   width: 90%;
   margin-bottom: 8px;
+  gap: 8px;
+  align-items: center;
+}
+
+.genre-select {
+  flex: 1;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -30,6 +37,33 @@
   outline: none;
   border-color: #4dabf7;
   box-shadow: 0 0 0 2px rgba(77, 171, 247, 0.2);
+}
+
+.add-genre-button {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #4dabf7;
+  border-radius: 50%;
+  background-color: #4dabf7;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.add-genre-button:hover {
+  background-color: #339af0;
+  border-color: #339af0;
+  transform: scale(1.05);
+}
+
+.add-genre-button:active {
+  transform: scale(0.95);
 }
 .question-textarea {
   margin: 10px;

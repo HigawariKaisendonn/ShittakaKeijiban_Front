@@ -2,8 +2,9 @@
 import { Text } from '@/components/atoms/text/Text';
 import { Input } from "@/components/atoms/input/Input";
 import "./question-card.scss";
-import React from 'react';
+import React, { useState } from 'react';
 import { Genre } from "@/types/Genre";
+import { GenrePopup } from "@/components/molecules/genrePopup/GenrePopup";
 
 interface QuetionCardProps{
   title: string;
@@ -13,9 +14,11 @@ interface QuetionCardProps{
   genres: Genre[];
   selectedGenre: number | null;
   onGenreSelect: (genreId: number) => void;
+  onAddGenre: (genreName: string) => Promise<void>;
 }
 
-export const QuestionCard : React.FC<QuetionCardProps>= ({ title, question, setTitleAction, setQuestionAction, genres, selectedGenre, onGenreSelect }) => {
+export const QuestionCard : React.FC<QuetionCardProps>= ({ title, question, setTitleAction, setQuestionAction, genres, selectedGenre, onGenreSelect, onAddGenre }) => {
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
   console.log('QuestionCard - genres:', genres);
   console.log('QuestionCard - selectedGenre:', selectedGenre);
 
@@ -29,24 +32,40 @@ export const QuestionCard : React.FC<QuetionCardProps>= ({ title, question, setT
         onChange={(e) => setTitleAction(e.target.value)}
       />
 
-      <select
-        value={selectedGenre || ""}
-        onChange={(e) => onGenreSelect(Number(e.target.value))}
-        className="genre-select"
-      >
-        <option value="">ジャンルを選択してください</option>
-        {genres.map((genre) => (
-          <option key={genre.id} value={genre.id}>
-            {genre.name}
-          </option>
-        ))}
-      </select>
+      <div className="genre-selector-container">
+        <select
+          value={selectedGenre || ""}
+          onChange={(e) => onGenreSelect(Number(e.target.value))}
+          className="genre-select"
+        >
+          <option value="">ジャンルを選択してください</option>
+          {genres.map((genre) => (
+            <option key={genre.id} value={genre.id}>
+              {genre.name}
+            </option>
+          ))}
+        </select>
+        <button
+          type="button"
+          onClick={() => setIsPopupOpen(true)}
+          className="add-genre-button"
+          title="新しいジャンルを追加"
+        >
+          +
+        </button>
+      </div>
 
       <textarea
         placeholder="問題文を入力"
         className="question-textarea"
         value={question}
         onChange={(e) => setQuestionAction(e.target.value)}
+      />
+
+      <GenrePopup
+        isOpen={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+        onAddGenre={onAddGenre}
       />
     </div>
   );
