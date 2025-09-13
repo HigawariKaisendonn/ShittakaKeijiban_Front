@@ -9,11 +9,11 @@ export const Header = () => {
     <div className="header-container">
       <div className="header-left">
         <Icon imageUrl="/images/icon.png" className="header-icon" />
-        <text className="header-title">
+        <div className="header-title">
           Pretender
           <br />
           Board
-        </text>
+        </div>
       </div>
       <AuthButton disabled={false} />
     </div>
