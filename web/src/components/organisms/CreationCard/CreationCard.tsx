@@ -8,9 +8,12 @@ import { ChoicesCard } from "@/components/molecules/choicesCard/ChoicesCard";
 import { AnswerCard } from "@/components/molecules/answerCard/AnswerCard";
 import { ExplanationCard } from "@/components/molecules/explanationCard/explanationCard";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Genre } from "@/types/Genre";
 
 export const CreationCard = () => {
+  const router = useRouter();
+
   // 問題作成フォームのページ管理
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -133,6 +136,11 @@ export const CreationCard = () => {
       console.log('投稿成功 - フォームをリセットします');
       resetForm();
       console.log('リセット後のジャンル状態:', genre);
+
+      // 問題一覧ページに遷移
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 1000); // 1秒後に遷移（ユーザーがアラートを確認する時間を確保）
 
     } catch (error: unknown) {
       console.error('投稿失敗:', error);
