@@ -6,11 +6,10 @@ import React from 'react';
 
 interface AnswerCardProps {
   choices: string[];
-  answerIndex: number | null;
   setAnswerIndexAction: (index: number) => void;
 }
 
-export const AnswerCard : React.FC<AnswerCardProps> = ({ choices, answerIndex, setAnswerIndexAction }) => {
+export const AnswerCard: React.FC<AnswerCardProps> = ({ choices, setAnswerIndexAction }) => {
   return (
     <div className="answer-card">
       <Text variant='subtitle'>解答選択</Text>
@@ -20,7 +19,7 @@ export const AnswerCard : React.FC<AnswerCardProps> = ({ choices, answerIndex, s
           key={index}
           onClick={() => setAnswerIndexAction(index)}
           disabled={choice.trim() === ""}
-          variant={answerIndex === index ? "primary" : "danger"}
+          variant={choices[index] ? "primary" : "danger"}
         >
           {choice || `入力されていません`}
         </Button>
@@ -28,4 +27,3 @@ export const AnswerCard : React.FC<AnswerCardProps> = ({ choices, answerIndex, s
     </div>
   );
 };
-

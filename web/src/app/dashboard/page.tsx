@@ -1,4 +1,5 @@
 import { PostCard } from "@/components/organisms/PostCard/PostCard";
+import { CreationCard } from "@/components/organisms/CreationCard/CreationCard";
 
 type Question = {
   id: number;
@@ -33,6 +34,7 @@ const DashboardPage = async () => {
         flexWrap: "wrap",
       }}
     >
+      <CreationCard />
       {questions.map((q) => (
         <PostCard key={q.id} post={q} choices={[]} />
       ))}
