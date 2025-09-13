@@ -26,9 +26,8 @@ export const CreationCard = () => {
   const [title, setTitle] = useState("");
   const [question, setQuestion] = useState("");
   const [explanation, setExplanation] = useState("");
-  const [genre, setGenre] = useState<number | null>(null);
+  // const [genre, setGenre] = useState<number | null>(null);
   const [choices, setChoices] = useState(["", "", "", ""]);
-  const [correct, setCorrect] = useState([false, false, false, false]);
   const [answerIndex, setAnswerIndex] = useState<number | null>(null);
 
   // クライアントサイドでのみlocalStorageにアクセス
@@ -67,10 +66,9 @@ export const CreationCard = () => {
     setTitle("");
     setQuestion("");
     setChoices(["", "", "", ""]);
-    setCorrect([false, false, false, false]);
     setAnswerIndex(null);
     setExplanation("");
-    setGenre(null);
+    // setGenre(null);
     setCurrentStep(0);
     setError(null);
   };
@@ -84,10 +82,10 @@ export const CreationCard = () => {
       const validChoices = choices.filter(choice => choice.trim() !== "");
 
       // 1. 問題を作成
-      const questionResponse = await apiClient.post('/api/questions', {
+      const questionResponse = await apiClient.post('/questions', {
         title: title.trim(),
-        question: question.trim(),
-        genre: genre || 6, // デフォルトジャンル
+        body: question.trim(),
+        genre_id: 1, // 固定ジャンルID
         explanation: explanation.trim()
       }, {
         headers: {
@@ -98,18 +96,20 @@ export const CreationCard = () => {
       const questionId = questionResponse.data.id || questionResponse.data.questionId;
       console.log('問題作成成功:', questionResponse.data);
 
-      // 2. 選択肢を作成
-      const choicesResponse = await apiClient.post('/api/choices/create', {
-        questionId: questionId,
-        choices: validChoices,
-        correct: 
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
+      // 2. 選択肢を作成（各選択肢を個別に作成）
+      for (let i = 0; i < validChoices.length; i++) {
+        await apiClient.post('/choices/create', {
+          question_id: questionId,
+          text: validChoices[i],
+          is_correct: i === answerIndex
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
 
-      console.log('選択肢作成成功:', choicesResponse.data);
+      console.log('選択肢作成成功');
 
       alert('問題を投稿しました！');
       resetForm();
