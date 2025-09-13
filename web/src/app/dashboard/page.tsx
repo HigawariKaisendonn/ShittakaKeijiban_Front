@@ -14,6 +14,11 @@ type Question = {
   incorrect_count: number;
 };
 
+type Genre = {
+  id: number;
+  name: string;
+};
+
 type Choice = {
   id: number;
   question_id: number;
@@ -25,6 +30,14 @@ async function fetchQuestions(): Promise<Question[]> {
   const res = await fetch("http://localhost:8088/api/questions", { cache: "no-store" });
   if (!res.ok) {
     throw new Error("Failed to fetch questions");
+  }
+  return res.json();
+}
+
+async function fetchGenres(): Promise<Genre[]> {
+  const res = await fetch("http://localhost:8088/api/genres", { cache: "no-store" });
+  if (!res.ok) {
+    throw new Error("Failed to fetch genres");
   }
   return res.json();
 }
@@ -56,6 +69,7 @@ async function fetchAllChoices(questions: Question[]): Promise<Choice[]> {
 
 const DashboardPage = async () => {
   const questions = await fetchQuestions();
+  const genres = await fetchGenres();
   const choices = await fetchAllChoices(questions);
   return (
     <div
@@ -69,7 +83,7 @@ const DashboardPage = async () => {
     >
       <CreationCard />
       {questions.map((q) => (
-        <PostCard key={q.id} post={q} choices={choices} />
+        <PostCard key={q.id} post={q} choices={choices} genres={genres} />
       ))}
     </div>
   );

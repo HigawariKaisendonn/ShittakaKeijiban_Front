@@ -11,6 +11,10 @@ type Choice = {
   isCorrect: boolean;
 };
 
+type Genre = {
+  id: number;
+  name: string;
+};
 
 type Post = {
   id: number;
@@ -28,9 +32,10 @@ type Post = {
 type Props = {
   post: Post;
   choices: Choice[];
+  genres: Genre[];
 };
 
-export const PostCard = ({ post, choices }: Props) => {
+export const PostCard = ({ post, choices, genres }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
 
@@ -38,9 +43,12 @@ export const PostCard = ({ post, choices }: Props) => {
     setSelectedId(id.toString());
   };
 
+  const genre = genres.find(g => g.id === post.genre_id);
+
   return (
     <div className="post-card">
       <h3>{post.title}</h3>
+      <h5>ジャンル：{genre?.name}</h5>
       <textarea className="question" value={post.body} readOnly />
       <div className="choices">
         {choices.filter(choice => choice.question_id === post.id).map((choice) => {
