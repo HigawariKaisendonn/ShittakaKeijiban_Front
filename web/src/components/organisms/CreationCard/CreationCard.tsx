@@ -1,22 +1,59 @@
 "use client";
 import "./creation-card.scss";
+import apiClient from "@/lib/apiClient";
+import { isAxiosError } from "axios";
 import { Button } from "@/components/atoms/button/button";
-import { QuestionCard }  from "@/components/molecules/questionCard/QuestionCard";
+import { QuestionCard } from "@/components/molecules/questionCard/QuestionCard";
 import { ChoicesCard } from "@/components/molecules/choicesCard/ChoicesCard";
 import { AnswerCard } from "@/components/molecules/answerCard/AnswerCard";
 import { ExplanationCard } from "@/components/molecules/explanationCard/explanationCard";
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Genre } from "@/types/Genre";
 
 export const CreationCard = () => {
+  const router = useRouter();
+
   // 問題作成フォームのページ管理
   const [currentStep, setCurrentStep] = useState(0);
 
+  // 認証トークンの状態管理（安全なlocalStorage使用）
+  const [token, setToken] = useState<string | null>(null);
+
+  // フォームの送信処理
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // エラー状態管理
+  const [error, setError] = useState<string | null>(null);
+
   // 各要素の状態管理
+  const [title, setTitle] = useState("");
   const [question, setQuestion] = useState("");
+  const [explanation, setExplanation] = useState("");
+  const [genre, setGenre] = useState<number | null>(null);
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [choices, setChoices] = useState(["", "", "", ""]);
   const [answerIndex, setAnswerIndex] = useState<number | null>(null);
-  const [explanation, setExplanation] = useState("");
+
+  // クライアントサイドでのみlocalStorageにアクセス
+  useEffect(() => {
+    const storedToken = localStorage.getItem("access_token");
+    setToken(storedToken);
+
+    // ジャンル一覧を取得
+    const fetchGenres = async () => {
+      try {
+        console.log('ジャンル取得開始...');
+        const response = await apiClient.get('/genres');
+        console.log('取得したジャンル:', response.data);
+        setGenres(response.data);
+      } catch (error) {
+        console.error('ジャンル取得失敗:', error);
+      }
+    };
+
+    fetchGenres();
+  }, []);
 
   // 選択肢の内容変更時処理
   const choiceChange = (index: number, value: string) => {
@@ -30,34 +67,146 @@ export const CreationCard = () => {
     }
   };
 
-  // フォームの送信処理
-  const handleSubmit = () => {
-    const emptyFields = [];
-    if (!question) {
-      emptyFields.push("問題文");
-    }
-    if (choices.filter(choice => choice.trim() !== "").length < 2) {
-      emptyFields.push("選択肢(2つ以上必要)");
-    }
-    if (answerIndex === null) {
-      emptyFields.push("解答");
-    }
-    if (!explanation) {
-      emptyFields.push("解説");
-    }
+  // ジャンル追加処理
+  const handleAddGenre = async (newGenreName: string): Promise<void> => {
+    try {
+      console.log('ジャンル追加開始:', newGenreName);
+      const response = await apiClient.post('/genres', {
+        name: newGenreName
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
-    if (emptyFields.length > 0) {
-      alert(`${emptyFields.join(", ")}が未入力です。再度入力してください。`);
-      return;
+      const newGenre = response.data;
+      console.log('新しいジャンル作成成功:', newGenre);
+
+      // ジャンル一覧を更新
+      setGenres(prev => [...prev, newGenre]);
+
+      // 作成したジャンルを自動選択
+      setGenre(newGenre.id);
+      console.log('ジャンル自動選択:', newGenre.id);
+
+    } catch (error) {
+      console.error('ジャンル追加失敗:', error);
+      setError('ジャンルの追加に失敗しました。');
+      throw error; // ポップアップでエラーハンドリングするため
     }
-    else {
-      const message = `
-      問題文: ${question}
-      選択肢: ${choices.join(", ")}
-      選択された解答: ${answerIndex !== null ? choices[answerIndex] : "未選択"}
-      解説: ${explanation}
-      `;
-      alert(message);
+  };
+
+  // バリデーション関数
+  const isFormValid = () => {
+    const validChoices = choices.filter(choice => choice.trim() !== "");
+    return (
+      title.trim() !== "" &&
+      question.trim() !== "" &&
+      validChoices.length >= 2 &&
+      answerIndex !== null &&
+      answerIndex < validChoices.length &&
+      explanation.trim() !== ""
+    );
+  };
+
+  // フォームリセット関数
+  const resetForm = () => {
+    console.log('resetForm実行 - 現在のジャンル:', genre);
+    setTitle("");
+    setQuestion("");
+    setChoices(["", "", "", ""]);
+    setAnswerIndex(null);
+    setExplanation("");
+    setGenre(null);
+    console.log('resetForm実行 - ジャンルをnullにセット');
+    setCurrentStep(0);
+    setError(null);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setError(null);
+
+    try {
+      const validChoices = choices.filter(choice => choice.trim() !== "");
+
+      // 1. 問題を作成
+      const questionResponse = await apiClient.post('/questions', {
+        title: title.trim(),
+        body: question.trim(),
+        genre_id: 1, // 固定ジャンルID
+        explanation: explanation.trim()
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const questionId = questionResponse.data.id || questionResponse.data.questionId;
+      console.log('問題作成成功:', questionResponse.data);
+
+      // 2. 選択肢を作成（各選択肢を個別に作成）
+      for (let i = 0; i < validChoices.length; i++) {
+        await apiClient.post('/choices/create', {
+          question_id: questionId,
+          text: validChoices[i],
+          is_correct: i === answerIndex
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+      }
+
+      console.log('選択肢作成成功');
+
+      alert('問題を投稿しました！');
+      console.log('投稿成功 - フォームをリセットします');
+      resetForm();
+      console.log('リセット後のジャンル状態:', genre);
+
+      // 問題一覧ページに遷移
+      setTimeout(() => {
+        router.push('/dashboard');
+      }, 1000); // 1秒後に遷移（ユーザーがアラートを確認する時間を確保）
+
+    } catch (error: unknown) {
+      console.error('投稿失敗:', error);
+
+      let errorMessage = '予期せぬエラーが発生しました。';
+
+      // 型ガードを使ってエラーの型を確認
+      if (error instanceof Error) {
+        console.error('エラーメッセージ:', error.message);
+      }
+
+      // Axiosエラーかどうかをチェック
+      if (isAxiosError(error)) {
+        const status = error.response?.status;
+
+        switch (status) {
+          case 400:
+            errorMessage = '入力内容に誤りがあります。確認してください。';
+            break;
+          case 401:
+            errorMessage = 'ログインが必要です。';
+            break;
+          case 500:
+            errorMessage = 'サーバーエラーが発生しました。';
+            break;
+          default:
+            errorMessage = '投稿に失敗しました。';
+        }
+      }
+
+      setError(errorMessage);
+      
+      // 部分的に作成されたデータのクリーンアップが必要な場合は
+      // ここでrollback処理を実装することも考慮
+      
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -65,10 +214,28 @@ export const CreationCard = () => {
     case 0:
       return (
         <div className="creationcard-container">
-          <QuestionCard question={question} setQuestionAction={setQuestion} />
+          {error && (
+            <div className="error-message" role="alert" style={{color: 'red', marginBottom: '1rem'}}>
+              {error}
+            </div>
+          )}
+          <QuestionCard
+            question={question}
+            title={title}
+            setQuestionAction={setQuestion}
+            setTitleAction={setTitle}
+            genres={genres}
+            selectedGenre={genre}
+            onGenreSelect={setGenre}
+            onAddGenre={handleAddGenre}
+          />
           <ChoicesCard choices={choices} choicesChangeAction={choiceChange} />
           <div className="button-container">
-            <Button variant="secondary" onClick={() => setCurrentStep(1)}>
+            <Button
+              variant="secondary"
+              onClick={() => setCurrentStep(1)}
+              disabled={isSubmitting || !title.trim() || !question.trim() || choices.filter(c => c.trim()).length < 2}
+            >
               次へ
             </Button>
           </div>
@@ -78,18 +245,40 @@ export const CreationCard = () => {
       return (
         <div>
           <div className="creationcard-container">
-            <AnswerCard choices={choices} answerIndex={answerIndex} setAnswerIndexAction={setAnswerIndex} />
-            <ExplanationCard explanation={explanation} setExplanationAction={setExplanation} />
+            {error && (
+              <div className="error-message" role="alert" style={{color: 'red', marginBottom: '1rem'}}>
+                {error}
+              </div>
+            )}
+            <AnswerCard 
+              choices={choices} 
+              answerIndex={answerIndex} 
+              setAnswerIndexAction={setAnswerIndex} 
+            />
+            <ExplanationCard 
+              explanation={explanation} 
+              setExplanationAction={setExplanation} 
+            />
             <div className="button-container">
-              <Button variant="primary" onClick={handleSubmit}>
-                投稿
+              <Button
+                variant="primary"
+                onClick={handleSubmit}
+                disabled={isSubmitting || !isFormValid()}
+              >
+                {isSubmitting ? '投稿中...' : '投稿'}
               </Button>
-              <Button variant="secondary" onClick={() => setCurrentStep(0)}>
+              <Button
+                variant="secondary"
+                onClick={() => setCurrentStep(0)}
+                disabled={isSubmitting}
+              >
                 戻る
               </Button>
             </div>
           </div>
         </div>
       );
+    default:
+      return null;
   }
 };

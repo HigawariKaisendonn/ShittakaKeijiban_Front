@@ -13,21 +13,19 @@ export const RadioInput = ({
   id,
   name,
   value,
+  label,
   checked,
   onChange,
 }: RadioInputProps) => {
   return (
-    <label className="radio-label">
-      <input
-        type="radio"
-        id={id}
-        name={name}
-        value={value}
-        checked={checked}
-        onChange={onChange}
-        className="radio-input"
-      />
-      <span>{value}</span>
-    </label>
+    <input
+      type="radio"
+      id={id}
+      name={name}
+      value={value}
+      checked={checked}
+      onChange={onChange}
+      className="radio-input"
+    />
   );
 };

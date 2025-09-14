@@ -66,7 +66,7 @@ export const AuthForm: React.FC = () => {
         console.error("新規登録失敗", error);
       }
     },
-    [username, email, password, confirmPassword]
+    [password, confirmPassword, username, email, router]
   );
 
   const handleSignIn = useCallback(
