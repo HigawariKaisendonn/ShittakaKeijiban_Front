@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChoiceOption } from "@/components/molecules/ChoiceOption/ChoiceOption";
 import { PostFooter } from "@/components/molecules/PostFooter/PostFooter";
+import { getUserById } from "@/lib/authService";
 import "./post-card.scss";
 
 type Choice = {
@@ -38,6 +39,21 @@ type Props = {
 export const PostCard = ({ post, choices, genres }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [username, setUsername] = useState<string>("");
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const user = await getUserById(post.user_id);
+        setUsername(user.username);
+      } catch (error) {
+        console.error("Failed to fetch username:", error);
+        setUsername("不明なユーザー");
+      }
+    };
+
+    fetchUsername();
+  }, [post.user_id]);
 
   const handleSelect = (id: number) => {
     setSelectedId(id.toString());
@@ -48,6 +64,7 @@ export const PostCard = ({ post, choices, genres }: Props) => {
   return (
     <div className="post-card">
       <h3>{post.title}</h3>
+      <p className="post-author">投稿者：{username}</p>
       <h5>ジャンル：{genre?.name}</h5>
       <textarea className="question" value={post.body} readOnly />
       <div className="choices">
