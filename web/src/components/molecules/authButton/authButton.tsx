@@ -1,6 +1,6 @@
 "use client";
 
-import "./auth-button.scss";
+import "./auth-Button.scss";
 import { Button } from "@/components/atoms/button/button";
 import { useRouter } from "next/navigation";
 

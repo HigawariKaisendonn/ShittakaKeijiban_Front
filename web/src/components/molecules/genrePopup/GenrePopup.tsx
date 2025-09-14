@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/atoms/button/button";
-import { Text } from "@/components/atoms/text/Text";
+import { Text } from "@/components/atoms/text/text";
 import "./genre-popup.scss";
 
 interface GenrePopupProps {
@@ -31,6 +31,7 @@ export const GenrePopup: React.FC<GenrePopupProps> = ({
       setNewGenreName("");
       onClose();
     } catch (error) {
+      console.error(error);
       setError("ジャンルの追加に失敗しました");
     } finally {
       setIsSubmitting(false);

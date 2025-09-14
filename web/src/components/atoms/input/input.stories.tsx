@@ -1,4 +1,4 @@
-import { Input } from "./Input";
+import { Input } from "./input";
 import type { Meta, StoryObj } from "@storybook/nextjs";
 
 const meta: Meta<typeof Input> = {

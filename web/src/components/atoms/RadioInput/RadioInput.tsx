@@ -13,7 +13,7 @@ export const RadioInput = ({
   id,
   name,
   value,
-  label,
+  // label,
   checked,
   onChange,
 }: RadioInputProps) => {

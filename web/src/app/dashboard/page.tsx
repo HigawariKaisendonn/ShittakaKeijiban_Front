@@ -51,11 +51,11 @@ async function fetchChoicesForQuestion(questionId: number): Promise<Choice[]> {
       return [];
     }
     const data = await res.json();
-    return data.choices.map((choice: any) => ({
+    return data.choices.map((choice:Choice) => ({
       id: choice.id,
       question_id: choice.question_id,
-      label: choice.text,
-      isCorrect: choice.is_correct
+      label: choice.label,
+      isCorrect: choice.isCorrect
     }));
   } catch (error) {
     console.error(`Failed to fetch choices for question ${questionId}:`, error);

@@ -5,8 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation"; // Next.js App Rou
 import "./auth-form.scss";
 import apiClient from "@/lib/apiClient";
 import { Button } from "@/components/atoms/button/button";
-import { Input } from "@/components/atoms/input/Input";
-import { Text } from "@/components/atoms/text/Text";
+import { Input } from "@/components/atoms/input/input";
+import { Text } from "@/components/atoms/text/text";
 import { worker } from "@/mocks/browser";
 
 export const AuthForm: React.FC = () => {

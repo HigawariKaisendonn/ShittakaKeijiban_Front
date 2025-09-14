@@ -1,7 +1,7 @@
 "use client";
 import "./hero-card.scss";
-import { Text } from "@/components/atoms/text/Text";
-import { AuthButton } from "@/components/molecules/authButton/AuthButton";
+import { Text } from "@/components/atoms/text/text";
+import { AuthButton } from "@/components/molecules/authButton/authButton";
 
 export const HeroCard = () => {
   return (

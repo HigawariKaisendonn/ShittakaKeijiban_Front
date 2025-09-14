@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/nextjs";
-import { Text } from "./Text";
+import { Text } from "./text";
 
 const meta: Meta<typeof Text> = {
   title: "Atoms/Text",

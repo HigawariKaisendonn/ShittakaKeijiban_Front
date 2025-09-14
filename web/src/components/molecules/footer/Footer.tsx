@@ -1,7 +1,7 @@
 'use client';
 
-import { Icon } from '@/components/atoms/icon/Icon';
-import { Text } from '@/components/atoms/text/Text';
+import { Icon } from '@/components/atoms/icon/icon';
+import { Text } from '@/components/atoms/text/text';
 import './footer.scss';
 
 export const Footer = () => {
