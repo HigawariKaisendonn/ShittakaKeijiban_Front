@@ -1,6 +1,6 @@
 "use client";
 import { Text } from '@/components/atoms/text/Text';
-import { Input } from "@/components/atoms/input/Input";
+import { Input } from "@/components/atoms/input/input";
 import "./question-card.scss";
 import React, { useState } from 'react';
 import { Genre } from "@/types/Genre";

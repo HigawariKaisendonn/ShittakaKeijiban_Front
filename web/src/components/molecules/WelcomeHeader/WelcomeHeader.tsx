@@ -2,9 +2,9 @@
 
 import { Icon } from "@/components/atoms/icon/Icon";
 import { AuthButton } from "@/components/molecules/authButton/AuthButton";
-import "./header.scss";
+import "./WelcomeHeader.scss";
 
-export const Header = () => {
+export const WelcomeHeader = () => {
   return (
     <div className="header-container">
       <div className="header-left">
