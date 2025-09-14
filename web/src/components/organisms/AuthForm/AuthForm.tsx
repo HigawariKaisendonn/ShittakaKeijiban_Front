@@ -7,6 +7,7 @@ import apiClient from "@/lib/apiClient";
 import { Button } from "@/components/atoms/button/button";
 import { Input } from "@/components/atoms/input/input";
 import { Text } from "@/components/atoms/text/text";
+import { EmailVerificationPopup } from "@/components/molecules/emailVerificationPopup/EmailVerificationPopup";
 
 export const AuthForm: React.FC = () => {
   const searchParams = useSearchParams();
@@ -43,6 +44,8 @@ export const AuthForm: React.FC = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
+  const [showEmailVerificationPopup, setShowEmailVerificationPopup] = useState(false);
+
   const router = useRouter();
 
   const handleSignUp = useCallback(
@@ -57,17 +60,18 @@ export const AuthForm: React.FC = () => {
           username,
           email,
           password,
+          redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify`
         });
 
-        const { token } = response.data;
-
-        localStorage.setItem("access_token", token);
-        router.push("/dashboard");
+        console.log("新規登録成功:", response.data);
+        setShowEmailVerificationPopup(true);
       } catch (error) {
         console.error("新規登録失敗", error);
+        // デバッグ用：エラーでもポップアップを表示
+        setShowEmailVerificationPopup(true);
       }
     },
-    [password, confirmPassword, username, email, router]
+    [password, confirmPassword, username, email]
   );
 
   const handleSignIn = useCallback(
@@ -183,6 +187,12 @@ export const AuthForm: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <EmailVerificationPopup
+        isOpen={showEmailVerificationPopup}
+        onClose={() => setShowEmailVerificationPopup(false)}
+        email={email}
+      />
     </div>
   );
 };
