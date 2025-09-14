@@ -60,11 +60,15 @@ export const AuthForm: React.FC = () => {
           username,
           email,
           password,
+          redirectUrl: `${process.env.NEXT_PUBLIC_APP_URL}/auth/verify`
         });
 
+        console.log("新規登録成功:", response.data);
         setShowEmailVerificationPopup(true);
       } catch (error) {
         console.error("新規登録失敗", error);
+        // デバッグ用：エラーでもポップアップを表示
+        setShowEmailVerificationPopup(true);
       }
     },
     [password, confirmPassword, username, email]
