@@ -29,7 +29,7 @@ type Choice = {
 };
 
 async function fetchQuestions(): Promise<Question[]> {
-  const res = await fetch("http://localhost:8088/api/questions", { cache: "no-store" });
+  const res = await fetch("https://shittaka-back.fly.dev/api/questions", { cache: "no-store" });
   if (!res.ok) {
     throw new Error("Failed to fetch questions");
   }
@@ -37,7 +37,7 @@ async function fetchQuestions(): Promise<Question[]> {
 }
 
 async function fetchGenres(): Promise<Genre[]> {
-  const res = await fetch("http://localhost:8088/api/genres", { cache: "no-store" });
+  const res = await fetch("https://shittaka-back.fly.dev/api/genres", { cache: "no-store" });
   if (!res.ok) {
     throw new Error("Failed to fetch genres");
   }
@@ -46,7 +46,7 @@ async function fetchGenres(): Promise<Genre[]> {
 
 async function fetchChoicesForQuestion(questionId: number): Promise<Choice[]> {
   try {
-    const res = await fetch(`http://localhost:8088/api/choices/${questionId}`, { cache: "no-store" });
+    const res = await fetch(`https://shittaka-back.fly.dev/api/choices/${questionId}`, { cache: "no-store" });
     if (!res.ok) {
       return [];
     }

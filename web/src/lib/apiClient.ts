@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:8088/api',
+  baseURL: 'https://shittaka-back.fly.dev/api',
   headers: {
     'Content-Type': 'application/json',
   },
