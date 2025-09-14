@@ -1,4 +1,12 @@
 {
+  "name": "shittaka-keijiban-front",
+  "private": true,
+  "scripts": {
+    "build": "cd web && npm install && npm run build",
+    "dev": "cd web && npm run dev",
+    "start": "cd web && npm start",
+    "install": "cd web && npm install"
+  },
   "dependencies": {
     "classnames": "^2.5.1",
     "lucide-react": "^0.513.0",
