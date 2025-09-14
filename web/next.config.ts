@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: 'standalone',
   webpack: (config, { isServer }) => {
     // Storybookファイルをビルドから除外
     config.module.rules.push({
