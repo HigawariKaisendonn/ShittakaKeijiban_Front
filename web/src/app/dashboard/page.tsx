@@ -1,5 +1,7 @@
+import { DashboardHeader } from "@/components/molecules/dashboardHeader/DashboardHeader";
 import { PostCard } from "@/components/organisms/PostCard/PostCard";
 import { CreationCard } from "@/components/organisms/CreationCard/CreationCard";
+
 
 type Question = {
   id: number;
@@ -72,19 +74,22 @@ const DashboardPage = async () => {
   const genres = await fetchGenres();
   const choices = await fetchAllChoices(questions);
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        gap: "16px",
-        margin: "20px",
-        flexWrap: "wrap",
-      }}
-    >
-      <CreationCard />
-      {questions.map((q) => (
-        <PostCard key={q.id} post={q} choices={choices} genres={genres} />
-      ))}
+    <div>
+      <DashboardHeader />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          gap: "16px",
+          margin: "20px",
+          flexWrap: "wrap",
+        }}
+      >
+        <CreationCard />
+        {questions.map((q) => (
+          <PostCard key={q.id} post={q} choices={choices} genres={genres} />
+        ))}
+      </div>
     </div>
   );
 };

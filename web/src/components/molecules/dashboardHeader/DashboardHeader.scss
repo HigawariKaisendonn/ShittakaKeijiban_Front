@@ -1,0 +1,25 @@
+.header-container{
+    height: 5vw;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background);
+    color: var(--foreground);
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.416);
+}
+.header-left {
+    display: flex;
+    align-items: center;
+
+    .icon {
+        margin-left: 20px;
+    }
+
+    .header-title {
+        text-align:left;
+        font-size: 20px;
+        font-weight: bold;
+        color: rgb(0, 0, 0);
+    }
+}

@@ -90,7 +90,6 @@ export const PostCard = ({ post, choices, genres }: Props) => {
       {showExplanation && (
         <div className="explanation">
           <p>{post.explanation}</p>
-          <p style={{ marginTop: 8, color: '#666' }}>閲覧数: {post.views}</p>
         </div>
       )}
     </div>
