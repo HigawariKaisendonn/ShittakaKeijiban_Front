@@ -51,7 +51,12 @@ async function fetchChoicesForQuestion(questionId: number): Promise<Choice[]> {
       return [];
     }
     const data = await res.json();
-    return data.choices.map((choice:Choice) => ({
+    console.log(`Choices data for question ${questionId}:`, data);
+
+    // APIが直接配列を返す場合とオブジェクトで包む場合の両方に対応
+    const choicesArray = Array.isArray(data) ? data : (data.choices || []);
+
+    return choicesArray.map((choice: Choice) => ({
       id: choice.id,
       question_id: choice.question_id,
       label: choice.label,

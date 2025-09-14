@@ -79,6 +79,9 @@ export const PostCard = ({ post, choices, genres }: Props) => {
   };
 
   const genre = genres.find(g => g.id === post.genre_id);
+  const postChoices = choices.filter(choice => choice.question_id === post.id);
+
+  console.log(`Post ${post.id} - Total choices: ${choices.length}, Filtered choices: ${postChoices.length}`, postChoices);
 
   return (
     <div className="post-card">
@@ -87,7 +90,7 @@ export const PostCard = ({ post, choices, genres }: Props) => {
       <h5>ジャンル：{genre?.name}</h5>
       <textarea className="question" value={post.body} readOnly />
       <div className="choices">
-        {choices.filter(choice => choice.question_id === post.id).map((choice) => {
+        {postChoices.map((choice) => {
           const isSelected = selectedId === choice.id.toString();
           const showResult = isSelected;
           return (
