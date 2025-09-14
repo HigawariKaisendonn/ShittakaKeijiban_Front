@@ -47,3 +47,8 @@ export const getProfileByUserId = async (userId: string): Promise<Profile> => {
     throw error;
   }
 };
+
+export const logout = async (): Promise<void> => {
+  await apiClient.post('/auth/logout');
+  localStorage.removeItem('access_token');
+};
