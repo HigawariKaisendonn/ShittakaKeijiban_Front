@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChoiceOption } from "@/components/molecules/ChoiceOption/ChoiceOption";
 import { PostFooter } from "@/components/molecules/PostFooter/PostFooter";
+import { getProfileByUserId, getUserById } from "@/lib/authService";
+import { Profile } from "@/types/Profile";
 import "./post-card.scss";
 
 type Choice = {
@@ -38,6 +40,39 @@ type Props = {
 export const PostCard = ({ post, choices, genres }: Props) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        console.log("Fetching profile for user_id:", post.user_id);
+        const profileData = await getProfileByUserId(post.user_id);
+        console.log("Profile data received:", profileData);
+        setProfile(profileData);
+      } catch (profileError) {
+        console.error("Failed to fetch profile for user_id:", post.user_id, profileError);
+        console.log("Falling back to getUserById...");
+        try {
+          const userData = await getUserById(post.user_id);
+          console.log("User data received:", userData);
+          // Profile形式に変換
+          const fallbackProfile: Profile = {
+            user_id: post.user_id,
+            username: userData.username,
+            display_name: userData.username,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          };
+          setProfile(fallbackProfile);
+        } catch (userError) {
+          console.error("Failed to fetch user data as fallback:", userError);
+          setProfile(null);
+        }
+      }
+    };
+
+    fetchProfile();
+  }, [post.user_id]);
 
   const handleSelect = (id: number) => {
     setSelectedId(id.toString());
@@ -48,6 +83,7 @@ export const PostCard = ({ post, choices, genres }: Props) => {
   return (
     <div className="post-card">
       <h3>{post.title}</h3>
+      <p className="post-author">投稿者：{profile?.display_name || profile?.username || "不明なユーザー"}</p>
       <h5>ジャンル：{genre?.name}</h5>
       <textarea className="question" value={post.body} readOnly />
       <div className="choices">

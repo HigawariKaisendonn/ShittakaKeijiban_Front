@@ -71,6 +71,7 @@ async function fetchAllChoices(questions: Question[]): Promise<Choice[]> {
 
 const DashboardPage = async () => {
   const questions = await fetchQuestions();
+  console.log("Questions data:", questions);
   const genres = await fetchGenres();
   const choices = await fetchAllChoices(questions);
   return (

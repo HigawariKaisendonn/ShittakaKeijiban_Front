@@ -13,6 +13,13 @@
   &:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
+
+  .post-author {
+    margin: 8px 0;
+    font-size: 14px;
+    color: #666;
+    font-weight: 500;
+  }
 }
 
 .question {
