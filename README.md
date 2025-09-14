@@ -1,6 +1,11 @@
 # 📚 しったか掲示板 - 技術スタック
 
 ## デプロイ先へのアクセス
+
+```
+https://shittakakeijibanfront-web.vercel.app
+```
+
 ```
 https://shittakakeijibanfront-jj4fxnwwo-omochinohoshis-projects.vercel.app
 ```
