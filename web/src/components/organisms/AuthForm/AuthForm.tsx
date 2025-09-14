@@ -5,9 +5,8 @@ import { useRouter, useSearchParams } from "next/navigation"; // Next.js App Rou
 import "./auth-form.scss";
 import apiClient from "@/lib/apiClient";
 import { Button } from "@/components/atoms/button/button";
-import { Input } from "@/components/atoms/input/Input";
-import { Text } from "@/components/atoms/text/Text";
-import { worker } from "@/mocks/browser";
+import { Input } from "@/components/atoms/input/input";
+import { Text } from "@/components/atoms/text/text";
 
 export const AuthForm: React.FC = () => {
   const searchParams = useSearchParams();
@@ -18,8 +17,10 @@ export const AuthForm: React.FC = () => {
    * MSWは使用しない
    */
   useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      worker.start();
+    if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+      import("@/mocks/browser").then(({ worker }) => {
+        worker.start();
+      });
     }
   }, []);
   /**

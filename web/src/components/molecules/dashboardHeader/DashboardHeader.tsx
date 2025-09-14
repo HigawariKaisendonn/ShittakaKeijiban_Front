@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Text } from "@/components/atoms/text/Text";
-import { Icon } from "@/components/atoms/icon/Icon";
-import { Button } from "@/components/atoms/button/Button";
+// import { Text } from "@/components/atoms/text/text";
+import { Icon } from "@/components/atoms/icon/icon";
+import { Button } from "@/components/atoms/button/button";
 import { getCurrentUser, logout } from "@/lib/authService";
 import "./DashboardHeader.scss";
 

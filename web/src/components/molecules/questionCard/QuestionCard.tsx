@@ -1,5 +1,5 @@
 "use client";
-import { Text } from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/text';
 import { Input } from "@/components/atoms/input/input";
 import "./question-card.scss";
 import React, { useState } from 'react';

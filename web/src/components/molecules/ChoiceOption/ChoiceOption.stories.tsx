@@ -21,7 +21,7 @@ type Story = StoryObj<typeof ChoiceOption>;
 
 export const Default: Story = {
   args: {
-    id: "1",
+    id: 1,
     name: "question1",
     label: "ハリー・ポッターと賢者の石",
     checked: false,
@@ -32,7 +32,7 @@ export const Default: Story = {
 
 export const SelectedCorrect: Story = {
   args: {
-    id: "2",
+    id: 2,
     name: "question1",
     label: "ハリー・ポッターと賢者の石",
     checked: true,
@@ -43,7 +43,7 @@ export const SelectedCorrect: Story = {
 
 export const SelectedWrong: Story = {
   args: {
-    id: "3",
+    id: 3,
     name: "question1",
     label: "ハリー・ポッターと賢者の石",
     checked: true,

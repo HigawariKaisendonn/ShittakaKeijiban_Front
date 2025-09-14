@@ -1,7 +1,7 @@
 "use client";
 import "./choices-card.scss"
-import { Input } from "@/components/atoms/input/Input";
-import { Text } from '@/components/atoms/text/Text';
+import { Input } from "@/components/atoms/input/input";
+import { Text } from '@/components/atoms/text/text';
 import React from 'react';
 
 interface ChoicesCardProps {
@@ -25,4 +25,3 @@ export const ChoicesCard : React.FC<ChoicesCardProps> = ({ choices, choicesChang
     </div>
   );
 };
-

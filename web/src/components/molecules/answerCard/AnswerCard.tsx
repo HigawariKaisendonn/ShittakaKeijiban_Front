@@ -1,7 +1,7 @@
 "use client";
 import "./answer-card.scss";
 import { Button } from "@/components/atoms/button/button";
-import { Text } from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/text';
 import React from 'react';
 
 interface AnswerCardProps {

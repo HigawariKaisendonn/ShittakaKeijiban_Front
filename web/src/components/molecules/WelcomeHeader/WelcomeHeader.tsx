@@ -1,7 +1,7 @@
 "use client";
 
-import { Icon } from "@/components/atoms/icon/Icon";
-import { AuthButton } from "@/components/molecules/authButton/AuthButton";
+import { Icon } from "@/components/atoms/icon/icon";
+import { AuthButton } from "@/components/molecules/authButton/authButton";
 import "./WelcomeHeader.scss";
 
 export const WelcomeHeader = () => {

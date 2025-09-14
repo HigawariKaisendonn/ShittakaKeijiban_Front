@@ -18,7 +18,7 @@ export const getUserById = async (userId: string): Promise<User> => {
 export const getProfileByUserId = async (userId: string): Promise<Profile> => {
   try {
     console.log("API call: GET /profiles/" + userId);
-    const response = await fetch(`http://localhost:8088/api/profiles/${userId}`, {
+    const response = await fetch(`https://shittaka-back.fly.dev/api/profiles/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'

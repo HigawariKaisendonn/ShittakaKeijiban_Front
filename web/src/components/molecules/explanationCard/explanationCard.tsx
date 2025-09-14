@@ -1,6 +1,6 @@
 "use client";
 import "./explanation-card.scss";
-import { Text } from '@/components/atoms/text/Text';
+import { Text } from '@/components/atoms/text/text';
 import React from 'react';
 
 interface ExplanationCardProps {
