@@ -56,11 +56,11 @@ async function fetchChoicesForQuestion(questionId: number): Promise<Choice[]> {
     // APIが直接配列を返す場合とオブジェクトで包む場合の両方に対応
     const choicesArray = Array.isArray(data) ? data : (data.choices || []);
 
-    return choicesArray.map((choice: Choice) => ({
+    return choicesArray.map((choice: any) => ({
       id: choice.id,
       question_id: choice.question_id,
-      label: choice.label,
-      isCorrect: choice.isCorrect
+      label: choice.text, // API: "text" → フロントエンド: "label"
+      isCorrect: choice.is_correct // API: "is_correct" → フロントエンド: "isCorrect"
     }));
   } catch (error) {
     console.error(`Failed to fetch choices for question ${questionId}:`, error);
@@ -69,9 +69,12 @@ async function fetchChoicesForQuestion(questionId: number): Promise<Choice[]> {
 }
 
 async function fetchAllChoices(questions: Question[]): Promise<Choice[]> {
+  console.log("fetchAllChoices called with questions:", questions.map(q => q.id));
   const choicesPromises = questions.map(q => fetchChoicesForQuestion(q.id));
   const choicesArrays = await Promise.all(choicesPromises);
-  return choicesArrays.flat();
+  const allChoices = choicesArrays.flat();
+  console.log("All choices fetched:", allChoices);
+  return allChoices;
 }
 
 const DashboardPage = async () => {
@@ -79,6 +82,7 @@ const DashboardPage = async () => {
   console.log("Questions data:", questions);
   const genres = await fetchGenres();
   const choices = await fetchAllChoices(questions);
+  console.log("Final choices passed to PostCards:", choices);
   return (
     <div>
       <DashboardHeader />

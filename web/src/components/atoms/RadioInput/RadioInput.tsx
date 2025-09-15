@@ -20,10 +20,10 @@ export const RadioInput = ({
   return (
     <input
       type="radio"
-      id={id}
-      name={name}
-      value={value}
-      checked={checked}
+      id={id || ""}
+      name={name || ""}
+      value={value || ""}
+      checked={checked || false}
       onChange={onChange}
       className="radio-input"
     />

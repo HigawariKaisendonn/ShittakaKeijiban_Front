@@ -85,10 +85,10 @@ export const PostCard = ({ post, choices, genres }: Props) => {
 
   return (
     <div className="post-card">
-      <h3>{post.title}</h3>
+      <h3>{post.title || ""}</h3>
       <p className="post-author">投稿者：{profile?.display_name || profile?.username || "不明なユーザー"}</p>
-      <h5>ジャンル：{genre?.name}</h5>
-      <textarea className="question" value={post.body} readOnly />
+      <h5>ジャンル：{genre?.name || "未分類"}</h5>
+      <textarea className="question" value={post.body || ""} readOnly />
       <div className="choices">
         {postChoices.map((choice) => {
           const isSelected = selectedId === choice.id.toString();
@@ -107,7 +107,7 @@ export const PostCard = ({ post, choices, genres }: Props) => {
               <ChoiceOption
                 id={choice.id}
                 name={`post-${post.id}`}
-                label={choice.label}
+                label={choice.label || ""}
                 checked={isSelected}
                 isSelected={isSelected}
                 isCorrect={choice.isCorrect}
@@ -128,7 +128,7 @@ export const PostCard = ({ post, choices, genres }: Props) => {
 
       {showExplanation && (
         <div className="explanation">
-          <p>{post.explanation}</p>
+          <p>{post.explanation || "説明がありません"}</p>
         </div>
       )}
     </div>
