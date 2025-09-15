@@ -31,7 +31,7 @@ export const ChoiceOption = ({
         onChange={onChange}
         label={label}
       />
-      <span className="label">{label}</span>
+      <span className="label">{label || ""}</span>
       {isSelected && (
         <Badge
           label={isCorrect ? "正解" : "不正解"}
