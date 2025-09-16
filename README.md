@@ -1,6 +1,6 @@
-# 📚 しったか掲示板 - 技術スタック
+# しったか掲示板 - 使用方法
 
-## デプロイ先へのアクセス
+### デプロイ先へのアクセス
 
 ```
 https://shittakakeijibanfront-web.vercel.app
@@ -9,6 +9,20 @@ https://shittakakeijibanfront-web.vercel.app
 ```
 https://shittakakeijibanfront-jj4fxnwwo-omochinohoshis-projects.vercel.app
 ```
+
+### 新規登録
+
+初めてのかたは、新規登録から初めてください。
+メールアドレスに認証の確認メールが届きます。
+
+メールに提示されたリンクにアクセスし、ログインを行ってください。
+
+### メイン画面
+
+ログインが成功すると、メイン画面に移ります。
+このページで問題作成や閲覧を行う事ができます。
+
+# 📚 しったか掲示板 - 技術スタック
 
 ## 🖥️ フロントエンド
 
