@@ -6,9 +6,6 @@
 https://shittakakeijibanfront-web.vercel.app
 ```
 
-```
-https://shittakakeijibanfront-jj4fxnwwo-omochinohoshis-projects.vercel.app
-```
 
 ### 新規登録
 
@@ -21,6 +18,11 @@ https://shittakakeijibanfront-jj4fxnwwo-omochinohoshis-projects.vercel.app
 
 ログインが成功すると、メイン画面に移ります。
 このページで問題作成や閲覧を行う事ができます。
+
+
+### 今後
+
+コメント機能やいいね機能、マイページ機能は今後実装予定です。
 
 # 📚 しったか掲示板 - 技術スタック
 
